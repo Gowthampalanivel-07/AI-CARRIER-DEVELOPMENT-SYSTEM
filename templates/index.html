@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ app_name }}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/static/css/styles.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+      // Safely register when available.
+      if (window.gsap && window.ScrollTrigger) window.gsap.registerPlugin(window.ScrollTrigger);
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="cursor-follower" aria-hidden="true"></div>
+    <div class="cursor-dot" aria-hidden="true"></div>
+
+    <div id="app">
+      <header class="topbar glass">
+        <div class="brand">
+          <img src="/static/logo.svg" class="brand-logo" alt="AI Placement logo" />
+          <div class="brand-text">
+            <div class="brand-title">AI Placement</div>
+            <div class="brand-sub">Career Development</div>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <button class="nav-link magnetic" data-nav="home">Home</button>
+          <button class="nav-link magnetic" data-nav="assess">Assess</button>
+          <button class="nav-link magnetic" data-nav="dashboard">Dashboard</button>
+          <button class="nav-link magnetic" data-nav="results" id="navResults">Results</button>
+        </nav>
+      </header>
+
+      <main class="page">
+        <!-- HOME -->
+        <section class="panel route" data-route="home" data-page aria-hidden="false">
+          <div class="hero">
+            <div class="hero-bg" aria-hidden="true"></div>
+            <div class="hero-grid" aria-hidden="true"></div>
+
+            <div class="hero-left">
+              <div class="eyebrow">
+                <span class="pill">Modern AI guidance</span>
+                <span class="pill ghost">Student-first experience</span>
+              </div>
+
+              <h1 class="kinetic">
+                <span class="kinetic-word">Find</span>
+                <span class="kinetic-word">&nbsp;your</span>
+                <span class="kinetic-word">&nbsp;next</span>
+                <span class="kinetic-word">&nbsp;role</span>
+              </h1>
+
+              <p class="hero-desc">
+                Share your skills and career goal. Get clear role recommendations, skill-gap insights, and a step-by-step
+                roadmap designed to help students prepare for placements confidently.
+              </p>
+
+              <div class="hero-actions">
+                <button class="primary magnetic" data-nav="assess">
+                  Start Assessment
+                  <span class="primary-arrow" aria-hidden="true">→</span>
+                </button>
+                <button class="secondary magnetic" id="openOnboarding">
+                  Placement guide
+                </button>
+              </div>
+
+              <div class="mini-features">
+                <div class="mini-card glass" data-anim="fade-up">
+                  <div class="mini-icon" aria-hidden="true">↯</div>
+                  <div class="mini-title">Career match score</div>
+                  <div class="mini-desc">Find roles aligned with your skills.</div>
+                </div>
+                <div class="mini-card glass" data-anim="fade-up" data-anim-delay="80">
+                  <div class="mini-icon" aria-hidden="true">⇵</div>
+                  <div class="mini-title">Skill gap insights</div>
+                  <div class="mini-desc">See what to improve first.</div>
+                </div>
+                <div class="mini-card glass" data-anim="fade-up" data-anim-delay="160">
+                  <div class="mini-icon" aria-hidden="true">⌁</div>
+                  <div class="mini-title">Placement roadmap</div>
+                  <div class="mini-desc">Weekly actions for faster progress.</div>
+                </div>
+              </div>
+            </div>
+
+            <aside class="hero-right glass" data-anim="zoom-in">
+              <div class="onboard-lottie-wrap">
+                <div id="heroLottie" class="lottie-box" aria-hidden="true"></div>
+                <div class="onboard-caption">
+                  <div class="caption-title">Personalized guidance</div>
+                  <div class="caption-sub">Get practical next steps based on your profile.</div>
+                </div>
+              </div>
+
+              <div class="stats">
+                <div class="stat">
+                  <div class="stat-k">3</div>
+                  <div class="stat-l">AI outputs</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-k">10+</div>
+                  <div class="stat-l">Action points</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-k">1</div>
+                  <div class="stat-l">Clean flow</div>
+                </div>
+              </div>
+
+              <div class="glass-hint">
+                Tip: include your real project skills for better recommendations.
+              </div>
+            </aside>
+          </div>
+
+          <div class="section-divider" aria-hidden="true"></div>
+
+          <div class="content-strip">
+            <div class="strip-card glass" data-anim="slide-in">
+              <div class="strip-title">Step 1</div>
+              <div class="strip-body">Enter your target role and current skills.</div>
+            </div>
+            <div class="strip-card glass" data-anim="slide-in" data-anim-delay="60">
+              <div class="strip-title">Step 2</div>
+              <div class="strip-body">Review role matches and skill gaps.</div>
+            </div>
+            <div class="strip-card glass" data-anim="slide-in" data-anim-delay="120">
+              <div class="strip-title">Step 3</div>
+              <div class="strip-body">Follow a practical plan for placement readiness.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ASSESS -->
+        <section class="panel route" data-route="assess" data-page hidden>
+          <div class="panel-head">
+            <div class="panel-title">Assessment</div>
+            <div class="panel-sub">Fill your profile to get accurate placement guidance.</div>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-card glass" data-anim="fade-up">
+              <form id="assessForm">
+                <div class="row">
+                  <label class="label">Name (optional)</label>
+                  <input class="input" type="text" name="name" placeholder="e.g., Gowtham" autocomplete="name" />
+                </div>
+                <div class="row">
+                  <label class="label">Email (optional)</label>
+                  <input class="input" type="email" name="email" placeholder="you@example.com" autocomplete="email" />
+                </div>
+
+                <div class="row">
+                  <label class="label">Target role</label>
+                  <input class="input" type="text" name="target_role" placeholder="e.g., Frontend Engineer, Data Analyst" required />
+                </div>
+
+                <div class="row">
+                  <label class="label">Experience (years)</label>
+                  <input class="input" type="number" name="experience_years" min="0" max="40" value="1" required />
+                </div>
+
+                <div class="row">
+                  <label class="label">Skills (comma-separated)</label>
+                  <input
+                    class="input"
+                    type="text"
+                    name="skills"
+                    placeholder="e.g., JavaScript, SQL, CSS, React"
+                    required
+                  />
+                </div>
+
+                <div class="row">
+                  <label class="label">Interests (optional)</label>
+                  <input class="input" type="text" name="interests" placeholder="e.g., UI/UX, analytics, cloud" />
+                </div>
+
+                <div class="row">
+                  <button class="submit magnetic" type="submit" id="submitBtn">
+                    <span class="submit-text">Get Recommendations</span>
+                    <span class="submit-loader" aria-hidden="true"></span>
+                    <span class="submit-icon" aria-hidden="true">↯</span>
+                  </button>
+                </div>
+
+                <div class="form-foot">
+                  You’ll get: placements, skill gaps, and a roadmap — generated via deterministic logic or OpenAI if configured.
+                </div>
+              </form>
+            </div>
+
+            <div class="glass-card glass" data-anim="zoom-in">
+              <div class="glass-card-head">
+                <div class="glass-card-title">Live preview</div>
+                <div class="glass-card-sub">Your profile summary updates while you type.</div>
+              </div>
+
+              <div class="preview">
+                <div class="preview-item">
+                  <div class="preview-k">Target</div>
+                  <div class="preview-v" id="previewTarget">—</div>
+                </div>
+                <div class="preview-item">
+                  <div class="preview-k">Experience</div>
+                  <div class="preview-v" id="previewExp">—</div>
+                </div>
+                <div class="preview-item">
+                  <div class="preview-k">Skills count</div>
+                  <div class="preview-v" id="previewSkillsCount">—</div>
+                </div>
+                <div class="preview-item">
+                  <div class="preview-k">Level</div>
+                  <div class="preview-v" id="previewLevel">—</div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="kbd-row">
+                  <span class="kbd">Tip</span>
+                  <span class="muted">Try “Data Analyst” with skills including SQL.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- RESULTS -->
+        <section class="panel route" data-route="results" data-page hidden>
+          <div class="panel-head">
+            <div class="panel-title">Results</div>
+            <div class="panel-sub">Use these recommendations to prepare and apply smarter.</div>
+          </div>
+
+          <div id="resultsWrap" class="results">
+            <div class="results-grid">
+              <div class="result-col">
+                <div class="section-label">Placement recommendations</div>
+                <div id="placements" class="cards"></div>
+                <div id="placementsSkeleton" class="skeleton-list" hidden>
+                  <div class="skeleton-card"></div>
+                  <div class="skeleton-card"></div>
+                  <div class="skeleton-card"></div>
+                </div>
+              </div>
+              <div class="result-col">
+                <div class="section-label">Skill gaps</div>
+                <div id="skillGaps" class="cards"></div>
+                <div id="gapsSkeleton" class="skeleton-list" hidden>
+                  <div class="skeleton-card tall"></div>
+                  <div class="skeleton-card tall"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="roadmap-block glass" data-anim="fade-up">
+              <div class="roadmap-head">
+                <div class="section-label">Roadmap</div>
+                <div class="roadmap-sub" id="roadmapSub">4 focused phases.</div>
+              </div>
+              <div id="roadmap" class="roadmap"></div>
+            </div>
+
+            <div class="notes glass" data-anim="fade-up" data-anim-delay="80">
+              <div class="notes-head">
+                <div class="section-label">AI notes</div>
+              </div>
+              <div id="aiNotes" class="notes-body">—</div>
+            </div>
+
+            <div class="actions-row">
+              <button class="secondary magnetic" data-nav="assess">Run again</button>
+              <button class="secondary magnetic" id="openExport">Export JSON</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- DASHBOARD -->
+        <section class="panel route" data-route="dashboard" data-page hidden>
+          <div class="panel-head">
+            <div class="panel-title">Student Dashboard</div>
+            <div class="panel-sub">Your personal AI career workspace with insights, jobs, and learning.</div>
+          </div>
+
+          <div class="results-grid">
+            <div class="glass card">
+              <div class="section-label">Account (Auth-based User ID)</div>
+              <div class="row">
+                <input id="authEmail" class="input" type="email" placeholder="you@example.com" />
+              </div>
+              <div class="row">
+                <input id="authPassword" class="input" type="password" placeholder="password (8+ characters)" />
+              </div>
+              <div class="actions-row">
+                <button id="authRegisterBtn" class="secondary magnetic">Register</button>
+                <button id="authLoginBtn" class="secondary magnetic">Login</button>
+              </div>
+              <div id="authStatus" class="card-why">Sign in to use secure user identity and retraining.</div>
+            </div>
+            <div class="glass card">
+              <div class="section-label">Background Personalization Retraining</div>
+              <div class="card-why">Train stronger recommendation weights from aggregate behavior events.</div>
+              <div class="row" style="margin-top:10px;">
+                <button id="retrainBtn" class="secondary magnetic">Start Retraining Job</button>
+              </div>
+              <div id="retrainStatus" class="card-why">No retrain job started yet.</div>
+            </div>
+          </div>
+
+          <div class="results-grid">
+            <div class="glass card">
+              <div class="section-label">Resume Upload (spaCy)</div>
+              <div class="row">
+                <input id="resumeFile" class="input" type="file" accept=".txt,.md,.json,.csv,.pdf,.doc,.docx" />
+              </div>
+              <div class="row">
+                <button id="resumeUploadBtn" class="secondary magnetic">Upload & Parse Resume</button>
+              </div>
+              <div id="resumeParseSummary" class="card-why">Upload a resume to auto-fill skills.</div>
+            </div>
+            <div class="glass card">
+              <div class="section-label">Dataset Ingestion</div>
+              <div class="row">
+                <select id="datasetKind" class="input">
+                  <option value="jobs">Jobs</option>
+                  <option value="courses">Courses</option>
+                </select>
+              </div>
+              <div class="row">
+                <input id="datasetFile" class="input" type="file" accept=".csv,.json" />
+              </div>
+              <div class="row">
+                <button id="datasetIngestBtn" class="secondary magnetic">Ingest Dataset</button>
+              </div>
+              <div id="datasetIngestStatus" class="card-why">Upload real datasets to replace demo records.</div>
+            </div>
+          </div>
+
+          <div class="results-grid">
+            <div class="glass card">
+              <div class="section-label">Smart Profile</div>
+              <div id="dashProfile" class="card-why">Run an assessment to generate your profile engine.</div>
+            </div>
+            <div class="glass card">
+              <div class="section-label">Career Score</div>
+              <div class="card-head">
+                <div class="card-role" id="careerScore">--</div>
+                <div class="card-conf" id="growthScore">--</div>
+              </div>
+              <div class="card-why">Live Growth Tracker + readiness score.</div>
+            </div>
+          </div>
+
+          <div class="roadmap-block glass" data-anim="fade-up" style="margin-top:12px;">
+            <div class="roadmap-head">
+              <div class="section-label">Skill Heatmap</div>
+              <div class="roadmap-sub">Beginner to advanced skill progression.</div>
+            </div>
+            <canvas id="skillsChart" height="120"></canvas>
+          </div>
+
+          <div class="results-grid" style="margin-top:12px;">
+            <div class="glass card">
+              <div class="section-label">AI Insights</div>
+              <div id="dashInsights" class="cards"></div>
+            </div>
+            <div class="glass card">
+              <div class="section-label">Activity Timeline</div>
+              <div id="dashTimeline" class="cards"></div>
+            </div>
+          </div>
+
+          <div class="results-grid" style="margin-top:12px;">
+            <div class="glass card">
+              <div class="section-label">Smart Job Matching</div>
+              <div id="dashJobs" class="cards"></div>
+            </div>
+            <div class="glass card">
+              <div class="section-label">Learning Hub</div>
+              <div id="dashLearning" class="cards"></div>
+            </div>
+          </div>
+
+          <div class="results-grid" style="margin-top:12px;">
+            <div class="glass card">
+              <div class="section-label">AI Chat Assistant</div>
+              <div class="row">
+                <input id="assistantMessage" class="input" type="text" placeholder="Ask: improve my resume for frontend roles" />
+              </div>
+              <div class="row">
+                <button id="assistantAskBtn" class="secondary magnetic">Ask Assistant</button>
+              </div>
+              <div id="assistantReply" class="card-why">Your context-aware answer appears here.</div>
+            </div>
+            <div class="glass card">
+              <div class="section-label">Smart Notifications</div>
+              <div id="dashNotifications" class="cards"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-inner glass"></div>
+      </footer>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-backdrop" id="modalBackdrop" hidden></div>
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+      <div class="modal-head">
+        <div class="modal-title">Placement guide</div>
+        <button class="icon-btn magnetic" id="closeModal" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="modalContent">
+          <div class="modal-grid">
+            <div class="modal-step glass">
+              <div class="modal-step-title">1) Provide your profile</div>
+              <div class="modal-step-body">Add your skills, target role, and experience level.</div>
+            </div>
+            <div class="modal-step glass">
+              <div class="modal-step-title">2) Get recommendations</div>
+              <div class="modal-step-body">See suitable roles, priority skill gaps, and action steps.</div>
+            </div>
+            <div class="modal-step glass">
+              <div class="modal-step-title">3) Execute weekly</div>
+              <div class="modal-step-body">Complete small tasks every week and improve consistency.</div>
+            </div>
+          </div>
+
+          <div class="modal-lottie-row glass">
+            <div class="modal-lottie" id="modalLottie"></div>
+            <div class="modal-lottie-text">
+              <div class="modal-lottie-title">Learning momentum</div>
+              <div class="modal-lottie-sub">Keep practicing and updating your profile as you grow.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="primary magnetic" id="modalCta" type="button">Start your assessment</button>
+      </div>
+    </div>
+
+    <!-- AI Brain FAB -->
+    <button class="ai-fab magnetic" id="aiBtn" aria-label="AI Insights">
+      <div class="ai-fab-glow" aria-hidden="true"></div>
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="ai-brain-icon" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path>
+        <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path>
+      </svg>
+    </button>
+
+    <!-- AI Insights Modal -->
+    <div class="modal ai-modal" id="aiModal" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+      <div class="modal-head ai-modal-head">
+        <div class="modal-title">
+          <span class="ai-sparkle">✨</span> AI Live Profile Insights
+        </div>
+        <button class="icon-btn magnetic" id="closeAiModal" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body ai-modal-body">
+        <div id="aiModalContent" class="ai-insights-content">
+          <div class="ai-skeleton" id="aiSkeleton">
+            <div class="skel-pulse">
+              <div class="skel-line"></div>
+              <div class="skel-line w-75"></div>
+              <div class="skel-line w-50"></div>
+            </div>
+          </div>
+          <div id="aiLiveInsights" hidden></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/static/js/cursor.js"></script>
+    <script src="/static/js/animations.js"></script>
+    <script src="/static/js/particles.js"></script>
+    <script src="/static/js/lottie.js"></script>
+    <script src="/static/js/app.js"></script>
+    <script src="/static/js/dashboard.js"></script>
+  </body>
+</html>
+

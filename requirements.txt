@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+jinja2
+sqlalchemy
+pydantic
+pydantic-settings
+httpx
+python-dotenv
+pandas
+scikit-learn
+spacy
+python-multipart
+pypdf
+python-docx
+passlib
+python-jose[cryptography]

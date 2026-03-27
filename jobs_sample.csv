@@ -1,0 +1,3 @@
+﻿id,title,company,location,salary_lpa,skills,description
+j101,Frontend Engineer,Acme,Bengaluru,11,"react,javascript,css,html",Build frontend apps
+j102,Data Analyst,Beta,Hyderabad,10,"sql,python,statistics,power bi",Analyze business data
